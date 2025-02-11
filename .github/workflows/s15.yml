@@ -47,11 +47,11 @@ jobs:
           send_telegram_notification() {
           local message=$1
             # 加入 spoiler 效果
-            # 转义 MarkdownV2 中的特殊字符
-            local escaped_message=$(echo "$message" | sed 's/[][(){}._*+^$|\\?-]/!\\&/g')
+            # 转义 MarkdownV2 中的特殊字符，特别是 '!' 字符
+             local escaped_message=$(echo "$message" | sed 's/[][(){}._*+^$|\\?-]/\\&/g' | sed 's/!/\\!/g')
     
-            # 使用 MarkdownV2 添加 spoiler 效果
-            local spoiler_message="||$escaped_message||"
+           # 使用 MarkdownV2 添加 spoiler 效果
+             local spoiler_message="||$escaped_message||"
     
             curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
