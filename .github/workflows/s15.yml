@@ -48,7 +48,7 @@ jobs:
           local message=$1
             # 加入 spoiler 效果
             # 转义 MarkdownV2 中的特殊字符
-            local escaped_message=$(echo "$message" | sed 's/[][(){}._*+^$|\\?-]/\\&/g')
+            local escaped_message=$(echo "$message" | sed 's/[][(){}._*+^$|\\?-]/!\\&/g')
     
             # 使用 MarkdownV2 添加 spoiler 效果
             local spoiler_message="||$escaped_message||"
