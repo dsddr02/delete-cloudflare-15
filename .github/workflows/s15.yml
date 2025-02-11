@@ -47,10 +47,10 @@ jobs:
           send_telegram_notification() {
             local message=$1
             # 加入spoiler效果
-          #  local spoiler_message="||$message||"
+            local spoiler_message="||$message||"
             curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
               -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-              -d text="$local message" > /dev/null 2>&1
+              -d text="$message" > /dev/null 2>&1
           }
 
           echo "*****************************************************"
