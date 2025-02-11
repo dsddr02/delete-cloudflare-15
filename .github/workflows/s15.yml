@@ -45,13 +45,16 @@ jobs:
           }
 
           send_telegram_notification() {
-            local message=$1
-            # 加入spoiler效果
+          local message=$1
+            # 加入 spoiler 效果
             local spoiler_message="||$message||"
+    
             curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_TOKEN }}/sendMessage" \
-              -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-              -d text="$message" > /dev/null 2>&1
-          }
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="$spoiler_message" \
+            -d parse_mode="Markdown" > /dev/null 2>&1
+           }
+
 
           echo "*****************************************************"
           echo "*****************************************************"
@@ -93,7 +96,7 @@ jobs:
                 echo "远程命令执行结果已成功隐藏。"
               else
                 echo "🎉恭喜！✅检测到所有进程正常运行中 "
-                send_telegram_notification "<tg-spoiler>🎉恭喜！✅检测到所有进程正常运行中!🚀服务器地址：</tg-spoiler> $HOST!"
+                send_telegram_notification "🎉恭喜！✅检测到所有进程正常运行中!🚀服务器地址： $HOST!"
               fi
             else
               echo "===================================================="
